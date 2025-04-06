@@ -2,6 +2,10 @@
 
 Aplicação criada para estudo.
 
+Curiosidades:
+
+* [A classe ModelMapper não funciona bem com record](https://stackoverflow.com/questions/62455515/how-can-i-use-java-records-as-dto-with-modelmapper)
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 

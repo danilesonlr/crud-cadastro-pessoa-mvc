@@ -23,7 +23,7 @@ public class Pessoa {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     @Column(name = "NOME")
     private String nome;
     @Column(name = "TELEFONE")

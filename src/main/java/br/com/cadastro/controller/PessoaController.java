@@ -1,8 +1,8 @@
 package br.com.cadastro.controller;
 
 import br.com.cadastro.domain.dto.PessoaDTO;
+import br.com.cadastro.domain.dto.PessoaDTORecord;
 import br.com.cadastro.servico.PessoaServico;
-import feign.Body;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

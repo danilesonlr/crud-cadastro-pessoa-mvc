@@ -41,6 +41,8 @@ dependencies {
 	implementation 'org.hibernate.validator:hibernate-validator-cdi:8.0.1.Final'
 	implementation 'jakarta.el:jakarta.el-api:5.0.1'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+	implementation 'org.modelmapper:modelmapper:3.1.1'
+
 
 }
 

@@ -1,6 +1,7 @@
 package br.com.cadastro.servico;
 
 import br.com.cadastro.domain.dto.PessoaDTO;
+import br.com.cadastro.domain.dto.PessoaDTORecord;
 
 import java.util.List;
 

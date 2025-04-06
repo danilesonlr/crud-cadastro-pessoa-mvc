@@ -1,6 +1,7 @@
 package br.com.cadastro.servico;
 
 import br.com.cadastro.domain.dto.PessoaDTO;
+import br.com.cadastro.domain.dto.PessoaDTORecord;
 import br.com.cadastro.domain.mapper.PessoaMapper;
 import br.com.cadastro.repository.PessoaRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +15,16 @@ import java.util.stream.Collectors;
 public class PessoaServiceImpl implements PessoaServico{
     public static final String PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada.";
     private final PessoaRepository pessoaRepository;
+    private final PessoaMapper pessoaMapper;
 
     @Override
     public void salvar(PessoaDTO pessoa) {
-        pessoaRepository.save(PessoaMapper.toEntity(pessoa));
+        pessoaRepository.save(pessoaMapper.toEntity(pessoa));
     }
 
     @Override
     public PessoaDTO buscar(Long id) {
-        return PessoaMapper.toDTO(pessoaRepository.findById(id)
+        return pessoaMapper.toDTO(pessoaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(PESSOA_NAO_ENCONTRADA)));
     }
 
@@ -30,7 +32,7 @@ public class PessoaServiceImpl implements PessoaServico{
     public List<PessoaDTO> buscarTodos() {
         return pessoaRepository.findAll()
                 .stream()
-                .map(PessoaMapper::toDTO)
+                .map(pessoaMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -38,9 +40,10 @@ public class PessoaServiceImpl implements PessoaServico{
     public void alterar(Long id, PessoaDTO pessoaDTO) {
         pessoaRepository.findById(id)
                 .map(p ->{
-                    p.setNome(pessoaDTO.nome());
-                    p.setTelefone(pessoaDTO.telefone());
-                    p.setDataNascimento(pessoaDTO.dataNascimento());
+                    p.setNome(pessoaDTO.getNome());
+                    p.setTelefone(pessoaDTO.getTelefone());
+                    p.setDataNascimento(pessoaDTO.getDataNascimento());
+                    p.setCpf(pessoaDTO.getCpf());
                     return pessoaRepository.save(p);
                 }).orElseThrow(() -> new RuntimeException(PESSOA_NAO_ENCONTRADA));
     }

@@ -1,31 +1,23 @@
 package br.com.cadastro.domain.mapper;
 
 import br.com.cadastro.domain.dto.PessoaDTO;
+import br.com.cadastro.domain.dto.PessoaDTORecord;
 import br.com.cadastro.domain.entities.Pessoa;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequiredArgsConstructor
 public class PessoaMapper {
 
-    public static Pessoa toEntity(PessoaDTO dto) {
-        if (dto == null) return null;
+    private final ModelMapper modelMapper;
 
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(dto.id());
-        pessoa.setNome(dto.nome());
-        pessoa.setTelefone(dto.telefone());
-        pessoa.setDataNascimento(dto.dataNascimento());
-        pessoa.setCpf(dto.CPF());
-        return pessoa;
+    public  Pessoa toEntity(PessoaDTO dto) {
+        return dto == null ? null : modelMapper.map(dto, Pessoa.class);
     }
 
-    public static PessoaDTO toDTO(Pessoa entity) {
-        if (entity == null) return null;
-
-        return new PessoaDTO(
-                entity.getId(),
-                entity.getNome(),
-                entity.getTelefone(),
-                entity.getDataNascimento(),
-                entity.getCpf()
-        );
+    public PessoaDTO toDTO(Pessoa entity) {
+        return entity == null ? null : modelMapper.map(entity, PessoaDTO.class);
     }
 }
