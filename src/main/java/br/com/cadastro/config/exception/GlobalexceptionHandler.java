@@ -1,6 +1,5 @@
-package br.com.cadastro.config;
+package br.com.cadastro.config.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +33,20 @@ public class GlobalexceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleCustomExceptions(Exception e, WebRequest request) {
         log.error(e.getMessage(), e);
         return handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(ValidationBusiness.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ResponseEntity<Object> handleFuncionarioNaoEncontradoException(
+            ValidationBusiness e,
+            WebRequest request) {
+
+        log.warn("Recurso não encontrado: {}", e.getMessage());
+
+        Map<String, String> errorBody = new HashMap<>();
+        errorBody.put("erro", e.getMessage());
+
+        return handleExceptionInternal(e, errorBody, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @Override

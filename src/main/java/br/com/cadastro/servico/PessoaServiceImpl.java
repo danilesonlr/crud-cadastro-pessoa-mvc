@@ -1,5 +1,6 @@
 package br.com.cadastro.servico;
 
+import br.com.cadastro.config.exception.ValidationBusiness;
 import br.com.cadastro.domain.dto.PessoaDTO;
 import br.com.cadastro.domain.dto.PessoaDTORecord;
 import br.com.cadastro.domain.mapper.PessoaMapper;
@@ -25,7 +26,7 @@ public class PessoaServiceImpl implements PessoaServico{
     @Override
     public PessoaDTO buscar(Long id) {
         return pessoaMapper.toDTO(pessoaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(PESSOA_NAO_ENCONTRADA)));
+                .orElseThrow(() -> new ValidationBusiness(PESSOA_NAO_ENCONTRADA)));
     }
 
     @Override
@@ -45,7 +46,7 @@ public class PessoaServiceImpl implements PessoaServico{
                     p.setDataNascimento(pessoaDTO.getDataNascimento());
                     p.setCpf(pessoaDTO.getCpf());
                     return pessoaRepository.save(p);
-                }).orElseThrow(() -> new RuntimeException(PESSOA_NAO_ENCONTRADA));
+                }).orElseThrow(() -> new ValidationBusiness(PESSOA_NAO_ENCONTRADA));
     }
 
     @Override
